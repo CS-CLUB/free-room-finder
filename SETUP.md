@@ -4,13 +4,19 @@ Free Room Finder Setup Instructions
 Creating the Database
 ----------------------
 
-1.  First connect to mysql and create a new database named free_room_finder
+1.  First connect to mysql (typically you will use *root* for the username)
+
+	```bash
+	mysql -u<username> -p
+	```
+
+2.  Create a new database named free_room_finder
 
     ```sql
     CREATE DATABASE free_room_finder;
     ```
 
-2.  Next, import the attached database dump, free_room_finder.sql, which contains
+3.  Next, import the attached database dump, free_room_finder.sql, which contains
     a dump of our entire database, including the data entered in each table.  
     The database dump can be imported in MySQL to create our entire database 
     populated with data. To import the database using the command line you may
@@ -19,6 +25,28 @@ Creating the Database
     ```bash
     mysql -u<username> -p free_room_finder < free_room_finder.sql
     ```
+
+Creating a use for accessing the free room website
+--------------------------------------------------
+Since access to the database well be required through scripts it is good practice to not use the root user credentials.
+
+1. Connect to MySQL
+
+	```bash
+	mysql -u<username> -p
+	```
+
+2. Create a new user for the free room finder database. Be sure to change the *<username>* and *<password>*.
+
+	```sql
+	CREATE USER '<username>'@'localhost' IDENTIFIED BY '<password>';
+	```
+	
+3. Provide access to the user for that database.
+
+	```sql
+	GRANT ALL ON free_room_finder.* to '<username>'@'localhost';
+	```
 
 Creating the Database from Scratch
 ------------------------------------
@@ -41,7 +69,15 @@ Creating the Database from Scratch
 
 4.  You can add a test account so that you can login using the following command.
 
+    ```sql
     INSERT INTO users VALUES (NULL, 'Bobby', 'Tables', AES_ENCRYPT('100123456', 'test123'), 'bobby.tables@gmail.com', 'test', AES_ENCRYPT('test123', 'test123'), CURDATE(), CURDATE());
+    ```
+
+5. Generate the database
+
+    ```bash
+    python2 scripts/db-generate-room.py
+    ```
 
 5.  You can login to the free room finder website using the username **test** and 
     password **test123**.
@@ -52,14 +88,13 @@ Configuring PHP
 
 1.  Edit the authorization file, inc/auth.php, and set your username,
     password, and database name. The following settings must be set in order to
-    connect to the database
+    connect to the database. If you created a user in the [previous section](#creating-a-use-for-accessing-the-free-room-website) use that user here.
 
     ```php
     /* Database access */
     $db_user = '';
     $db_pass = '';
-    $db_name = '';
-	$db_login = '';
+    $db_name = 'free_room_finder';
     ```
 
 2.  Next, configure the root URL for the statistics javascript file which uses the
