@@ -73,13 +73,14 @@ Creating the Database from Scratch
     INSERT INTO users VALUES (NULL, 'Bobby', 'Tables', AES_ENCRYPT('100123456', 'test123'), 'bobby.tables@gmail.com', 'test', AES_ENCRYPT('test123', 'test123'), CURDATE(), CURDATE());
     ```
 
-5. Generate the database
+5. Generate the database `python2 scripts/db-generate-room.py <semester> <year>` For example:
 
-    ```bash
-    python2 scripts/db-generate-room.py
-    ```
+	```bash
+	python2.7 scripts/db-generate-room.py fall 2014
+	```
 
-5.  You can login to the free room finder website using the username **test** and 
+
+6.  You can login to the free room finder website using the username **test** and 
     password **test123**.
 
 
