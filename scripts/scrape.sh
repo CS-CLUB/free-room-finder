@@ -1,4 +1,4 @@
-#!/bin/bash=
+#!/bin/bash
 ################################################################################
 #
 # A script to simplify executing db-generate-room.py to parse an
