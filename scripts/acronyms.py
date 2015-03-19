@@ -42,6 +42,27 @@ campus_acronyms = {'UON': 'North Oshawa Campus',
                    'WEB': 'Web Course',
                    'OTH': 'Other Campus'}
 
+# UPDATED campus acronyms for 2015
+campus_acronyms.update({
+    'UON': 'UOIT - North Oshawa',
+    'UOD': 'UOIT - Downtown Oshawa'
+
+})
+
+
+def make_nan_campus(campus):
+    """ A function that creates acronyms for campi which aren't yet listed.
+    This is important, as the dbinterface module looks them up by abbreviation.
+    """
+    nanVal = 1
+    while True:
+        key = 'NAN-' + str(nanVal)
+        if key in campus_acronyms:
+            continue
+        else:
+            campus_acronyms[key] = campus
+            return key
+
 # Dictionary mapping class types to acronyms
 class_types = {'LEC': 'Lecture',
                'TUT': 'Tutorial',
