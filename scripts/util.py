@@ -1,27 +1,27 @@
-#!/usr/bin/env python2
-################################################################################
-#
-# A module containing a collection of useful functions for a variety of tasks
-#
-# Copyright (C) 2013, Jonathan Gillett, Joseph Heron, and Daniel Smullen
-# All rights reserved.
-#
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
 
+# Apoligies for the messy lambda function.
+# It simply draws a certain number of spaces with a given indentation value.
+def log_anything_prettily(logfunc,thingy,indent = 0, indentf = lambda i: ''.join(['  ' for x in range(i)])):
+	""" A function that logs multidimentional lists/dictionaries recursively.
+
+	Parameters:
+		logfunc - a function that will be called for logging (ex: print)
+		thingy - the thing to log (dictionary, list, etc)
+		[indent] - indentation level to start at (used in recursion)
+		[indentf] - function to generate indentation
+	"""
+	if isinstance(thingy, dict):
+		logfunc(indentf(indent) + "[DICTIONARY]")
+		for key in thingy:
+			val = thingy[key]
+			logfunc(indentf(indent) + str(key) + "==>")
+			log_anything_prettily(logfunc,val,indent+1,indentf)
+	elif isinstance(thingy,list):
+		logfunc(indentf(indent) + "[LIST]")
+		for val in thingy:
+			log_anything_prettily(logfunc,val,indent+1,indentf)
+	else:
+		logfunc(indentf(indent) + str(thingy))
 
 def reverse_lookup(d, v):
     """A function which does a reverse-lookup in a dictionary, given the

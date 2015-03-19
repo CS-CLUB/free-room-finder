@@ -1,8 +1,8 @@
 #!/bin/bash
 ################################################################################
 #
-# A script to simplify executing db-generate-room.py to parse an
-# available semester.
+# A script to simplify executing db-generate-room.py to parse all of the
+# available semesters.
 #
 # Copyright (C) 2015, Jonathan Gillett, Joseph Heron
 # All rights reserved.
@@ -22,9 +22,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+YEARS=("2005" "2006" "2007" "2008" "2009" "2010" "2011" "2012" "2013")
+SEMESTERS=("fall" "winter")
 
-read -p "Enter year (ex: 2015): " year
-echo "Running scraper on winter semester (check logs for details)"
-python2 scraper.py winter $year &> logs/test.log
-echo "Running scraper on fall semester (check logs for details)"
-python2 scraper.py fall $year &> logs/test.log
+for YEAR in "${YEARS[@]}"
+do
+    for SEMESTER in "${SEMESTERS[@]}"
+    do
+        python2 scraper.py ${SEMESTER} ${YEAR} &> logs/${SEMESTER}_${YEAR}.log
+    done
+done
