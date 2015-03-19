@@ -4,7 +4,7 @@
 # A script to simplify executing db-generate-room.py to parse all of the
 # available semesters.
 #
-# Copyright (C) 2013, Jonathan Gillett, Joseph Heron
+# Copyright (C) 2015, Jonathan Gillett, Joseph Heron
 # All rights reserved.
 #
 #
